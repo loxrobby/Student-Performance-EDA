@@ -503,7 +503,7 @@ def kpis(dff: pd.DataFrame) -> None:
         c4.metric("Most common grade", str(top_grade))
 
 
-def grade_distribution(dff: pd.DataFrame) -> None:
+def grade_distribution(dff: pd.DataFrame, *, key: str = "grade_distribution") -> None:
     if "Grade" not in dff.columns:
         return
     counts = dff["Grade"].value_counts().reindex(GRADE_ORDER).dropna()
@@ -514,10 +514,10 @@ def grade_distribution(dff: pd.DataFrame) -> None:
         title="Grade distribution",
         labels={"count": "Students", "Grade": "Grade"},
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
-def grade_vs_attendance(dff: pd.DataFrame) -> None:
+def grade_vs_attendance(dff: pd.DataFrame, *, key: str = "grade_vs_attendance") -> None:
     if not {"Grade", "Attendance (%)"}.issubset(dff.columns):
         return
     fig = px.box(
@@ -528,7 +528,7 @@ def grade_vs_attendance(dff: pd.DataFrame) -> None:
         title="Distribution of Attendance (%) by Grade (box plot)",
         points="outliers",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
     avg = dff.groupby("Grade", dropna=False)["Attendance (%)"].mean().reindex(GRADE_ORDER)
     st.caption("Notebook-style summary")
@@ -543,7 +543,7 @@ def grade_vs_attendance(dff: pd.DataFrame) -> None:
     )
 
 
-def grade_vs_total_score(dff: pd.DataFrame) -> None:
+def grade_vs_total_score(dff: pd.DataFrame, *, key_box: str = "grade_vs_total_score_box", key_bar: str = "grade_vs_total_score_bar") -> None:
     if not {"Grade", "Total_Score"}.issubset(dff.columns):
         return
     fig = px.box(
@@ -554,14 +554,14 @@ def grade_vs_total_score(dff: pd.DataFrame) -> None:
         title="Distribution of Total Score by Grade (box plot)",
         points="outliers",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key_box)
 
     tmp = dff.groupby("Grade", dropna=False)["Total_Score"].mean().reindex(GRADE_ORDER).reset_index()
     fig2 = px.bar(tmp, x="Grade", y="Total_Score", title="Average total score by grade")
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, use_container_width=True, key=key_bar)
 
 
-def attendance_vs_performance(dff: pd.DataFrame) -> None:
+def attendance_vs_performance(dff: pd.DataFrame, *, key: str = "attendance_vs_performance") -> None:
     needed = {"Attendance (%)", "Total_Score", "Grade"}
     if not needed.issubset(set(dff.columns)):
         return
@@ -574,10 +574,10 @@ def attendance_vs_performance(dff: pd.DataFrame) -> None:
         title="Attendance vs total score (colored by grade)",
         hover_data=["Department", "Gender", "Age"] if {"Department", "Gender", "Age"}.issubset(dff.columns) else None,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
-def score_by_attendance_tier(dff: pd.DataFrame) -> None:
+def score_by_attendance_tier(dff: pd.DataFrame, *, key: str = "score_by_attendance_tier") -> None:
     needed = {"Attendance_Tier", "Total_Score"}
     if not needed.issubset(set(dff.columns)):
         return
@@ -594,10 +594,10 @@ def score_by_attendance_tier(dff: pd.DataFrame) -> None:
         title="Average total score by attendance tier",
         labels={"Total_Score": "Avg total score", "Attendance_Tier": "Attendance tier"},
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
-def correlations_heatmap(dff: pd.DataFrame) -> None:
+def correlations_heatmap(dff: pd.DataFrame, *, key: str = "correlations_heatmap") -> None:
     numeric_cols = [
         c
         for c in [
@@ -633,10 +633,10 @@ def correlations_heatmap(dff: pd.DataFrame) -> None:
         title="Correlation heatmap (numeric features)",
     )
     fig.update_layout(height=820)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
-def top_correlations_with_target(dff: pd.DataFrame, target: str = "Total_Score") -> None:
+def top_correlations_with_target(dff: pd.DataFrame, target: str = "Total_Score", *, key: str = "top_correlations_with_target") -> None:
     if target not in dff.columns:
         return
     numeric = dff.select_dtypes(include="number")
@@ -652,10 +652,10 @@ def top_correlations_with_target(dff: pd.DataFrame, target: str = "Total_Score")
         title=f"Top correlations with {target} (absolute)",
         labels={"index": "feature", target: "correlation"},
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=f"{key}_{target}")
 
 
-def department_violin(dff: pd.DataFrame) -> None:
+def department_violin(dff: pd.DataFrame, *, key: str = "department_violin") -> None:
     if not {"Department", "Total_Score"}.issubset(dff.columns):
         return
     fig = px.violin(
@@ -667,10 +667,10 @@ def department_violin(dff: pd.DataFrame) -> None:
         title="Total score distribution by department (violin)",
     )
     fig.update_layout(xaxis_title=None)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
-def heatmap_grade_by_department(dff: pd.DataFrame) -> None:
+def heatmap_grade_by_department(dff: pd.DataFrame, *, key: str = "heatmap_grade_by_department") -> None:
     if not {"Grade", "Department"}.issubset(dff.columns):
         return
     ctab = pd.crosstab(dff["Grade"], dff["Department"], normalize="columns") * 100
@@ -683,7 +683,7 @@ def heatmap_grade_by_department(dff: pd.DataFrame) -> None:
         labels={"x": "Department", "y": "Grade", "color": "%"},
         color_continuous_scale="Viridis",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
 def histograms(dff: pd.DataFrame) -> None:
@@ -693,7 +693,7 @@ def histograms(dff: pd.DataFrame) -> None:
     col = st.selectbox("Pick a numeric column", options=numeric_cols, index=numeric_cols.index("Total_Score") if "Total_Score" in numeric_cols else 0)
     bins = st.slider("Bins", min_value=5, max_value=60, value=30)
     fig = px.histogram(dff, x=col, nbins=bins, title=f"Distribution of {col}")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=f"hist_{col}_{bins}")
 
 
 def per_column_eda(dff: pd.DataFrame, col: str) -> None:
@@ -720,7 +720,7 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
 
         bins = st.slider("Histogram bins", min_value=5, max_value=80, value=30, key=f"bins_{col}")
         fig = px.histogram(dff, x=col, nbins=bins, title=f"Distribution of {col}")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"percol_{col}_hist_{bins}")
 
         # Relationship with Grade
         if "Grade" in dff.columns:
@@ -732,7 +732,7 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
                 title=f"{col} by Grade (box plot)",
                 points="outliers",
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True, key=f"percol_{col}_by_grade_box")
 
         # Relationship with Total_Score (if available)
         if "Total_Score" in dff.columns and col != "Total_Score":
@@ -744,22 +744,24 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
                 title=f"{col} vs Total_Score",
                 trendline="ols" if st.checkbox("Add trendline", value=False, key=f"trend_{col}") else None,
             )
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(fig3, use_container_width=True, key=f"percol_{col}_total_scatter")
         return
 
     # Categorical / object EDA
     st.markdown("#### Value counts")
-    vc = series.fillna("Not Reported").astype(str).value_counts().reset_index()
+    # NOTE: series can be pandas.Categorical; fillna on categorical requires the category to exist.
+    series_str = series.astype("string").fillna("Not Reported")
+    vc = series_str.value_counts().reset_index()
     vc.columns = [col, "count"]
     st.dataframe(vc, use_container_width=True)
     fig = px.bar(vc, x=col, y="count", title=f"{col} distribution")
     fig.update_layout(xaxis_title=None)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=f"percol_{col}_bar")
 
     # Crosstab with Grade
     if "Grade" in dff.columns:
         st.markdown("#### Grade distribution within categories (%)")
-        ctab = pd.crosstab(dff["Grade"], series.fillna("Not Reported").astype(str), normalize="columns") * 100
+        ctab = pd.crosstab(dff["Grade"], series_str, normalize="columns") * 100
         ctab = ctab.reindex(GRADE_ORDER).fillna(0)
         fig2 = px.imshow(
             ctab.round(1),
@@ -769,7 +771,7 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
             labels={"x": col, "y": "Grade", "color": "%"},
             color_continuous_scale="Viridis",
         )
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, use_container_width=True, key=f"percol_{col}_grade_heatmap")
 
     # Total score by category
     if "Total_Score" in dff.columns:
@@ -782,7 +784,7 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
             title=f"Total_Score by {col}",
         )
         fig3.update_layout(xaxis_title=None)
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, use_container_width=True, key=f"percol_{col}_total_box")
 
 
 def insight_questions_section(dff: pd.DataFrame) -> None:
@@ -803,7 +805,8 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
         "11) Does parent education relate to grade distribution?",
         "12) Does stress level relate to grades or total score?",
     ]
-    q = st.selectbox("Choose a question", options=questions)
+    q = st.selectbox("Choose a question", options=questions, key="qa_question_select")
+    q_key = q.split(")")[0].strip()
 
     if q.startswith("1") and "Grade" in dff.columns:
         counts = dff["Grade"].value_counts().reindex(GRADE_ORDER).dropna()
@@ -812,13 +815,13 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
         dfq.columns = ["Grade", "Students"]
         dfq["Percent"] = (dfq["Students"] / dfq["Students"].sum() * 100).round(1)
         fig = px.bar(dfq, x="Grade", y="Students", title="Grade distribution")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_grade_dist")
         st.dataframe(dfq, use_container_width=True)
         return
 
     if q.startswith("2") and {"Grade", "Attendance (%)"}.issubset(dff.columns):
         st.write("**Answer:** Attendance is compared across grades using a box plot and grade-level averages.")
-        grade_vs_attendance(dff)
+        grade_vs_attendance(dff, key=f"qa_{q_key}_grade_att_box")
         return
 
     if q.startswith("3") and {"Attendance_Tier", "Grade"}.issubset(dff.columns):
@@ -833,7 +836,7 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
             labels={"x": "Attendance tier", "y": "Grade", "color": "%"},
             color_continuous_scale="Viridis",
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_att_tier_heatmap")
         return
 
     if q.startswith("4") and {"Final_Score", "Grade"}.issubset(dff.columns):
@@ -846,7 +849,7 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
             title="Final_Score by Grade",
             points="outliers",
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_final_by_grade")
         if "Grade_Numeric" in dff.columns:
             corr = dff[["Final_Score", "Grade_Numeric"]].corr(numeric_only=True).iloc[0, 1]
             st.caption(f"Correlation (Final_Score vs Grade_Numeric): **{corr:.3f}**")
@@ -857,7 +860,7 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
         median_part = float(dff["Participation_Score"].median())
         tmp = dff.assign(Participation_Group=dff["Participation_Score"].apply(lambda v: "High (>= median)" if v >= median_part else "Low (< median)"))
         fig = px.box(tmp, x="Participation_Group", y="Total_Score", title="Total_Score by participation group", points="outliers")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_part_box")
         high = tmp.loc[tmp["Participation_Group"] == "High (>= median)", "Total_Score"].dropna()
         low = tmp.loc[tmp["Participation_Group"] == "Low (< median)", "Total_Score"].dropna()
         if len(high) > 1 and len(low) > 1:
@@ -868,7 +871,7 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
     if q.startswith("6") and {"Sleep_Hours_per_Night", "Attendance (%)"}.issubset(dff.columns):
         st.write("**Answer:** We compare attendance across higher vs lower sleep (median split) and visualize the trend.")
         fig = px.scatter(dff, x="Sleep_Hours_per_Night", y="Attendance (%)", opacity=0.6, title="Sleep hours vs Attendance (%)")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_sleep_att_scatter")
         median_sleep = float(dff["Sleep_Hours_per_Night"].median())
         high = dff.loc[dff["Sleep_Hours_per_Night"] >= median_sleep, "Attendance (%)"].dropna()
         low = dff.loc[dff["Sleep_Hours_per_Night"] < median_sleep, "Attendance (%)"].dropna()
@@ -880,31 +883,32 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
     if q.startswith("7") and {"Study_Hours_per_Week", "Total_Score"}.issubset(dff.columns):
         st.write("**Answer:** We visualize the relationship between study hours and total score.")
         fig = px.scatter(dff, x="Study_Hours_per_Week", y="Total_Score", opacity=0.6, title="Study hours per week vs Total_Score")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_study_total_scatter")
         corr = dff[["Study_Hours_per_Week", "Total_Score"]].corr(numeric_only=True).iloc[0, 1]
         st.caption(f"Correlation: **{corr:.3f}**")
         return
 
     if q.startswith("8") and {"Department", "Total_Score"}.issubset(dff.columns):
         st.write("**Answer:** Compare total score distributions across departments.")
-        department_violin(dff)
+        department_violin(dff, key=f"qa_{q_key}_dept_violin")
         return
 
     if q.startswith("9") and {"Extracurricular_Activities", "Total_Score"}.issubset(dff.columns):
         st.write("**Answer:** Compare total score by extracurricular participation.")
         fig = px.box(dff, x="Extracurricular_Activities", y="Total_Score", points="outliers", title="Total_Score by extracurricular activities")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_extra_box")
         return
 
     if q.startswith("10") and {"Internet_Access_at_Home", "Total_Score"}.issubset(dff.columns):
         st.write("**Answer:** Compare total score by home internet access.")
         fig = px.box(dff, x="Internet_Access_at_Home", y="Total_Score", points="outliers", title="Total_Score by internet access at home")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_internet_box")
         return
 
     if q.startswith("11") and {"Parent_Education_Level", "Grade"}.issubset(dff.columns):
         st.write("**Answer:** Grade distribution within each parent education category.")
-        ctab = pd.crosstab(dff["Grade"], dff["Parent_Education_Level"].fillna("Not Reported"), normalize="columns") * 100
+        edu = dff["Parent_Education_Level"].astype("string").fillna("Not Reported")
+        ctab = pd.crosstab(dff["Grade"], edu, normalize="columns") * 100
         ctab = ctab.reindex(GRADE_ORDER).fillna(0)
         fig = px.imshow(
             ctab.round(1),
@@ -914,13 +918,13 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
             labels={"x": "Parent education", "y": "Grade", "color": "%"},
             color_continuous_scale="Viridis",
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_parentedu_heatmap")
         return
 
     if q.startswith("12") and "Stress_Level (1-10)" in dff.columns:
         st.write("**Answer:** Visualize stress distribution and its relationship to grades / total score.")
         fig = px.histogram(dff, x="Stress_Level (1-10)", nbins=10, title="Stress level distribution")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"qa_{q_key}_stress_hist")
         if {"Grade", "Stress_Level (1-10)"}.issubset(dff.columns):
             fig2 = px.box(
                 dff,
@@ -930,10 +934,10 @@ def insight_questions_section(dff: pd.DataFrame) -> None:
                 title="Stress level by Grade",
                 points="outliers",
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True, key=f"qa_{q_key}_stress_by_grade")
         if {"Total_Score", "Stress_Level (1-10)"}.issubset(dff.columns):
             fig3 = px.scatter(dff, x="Stress_Level (1-10)", y="Total_Score", opacity=0.6, title="Stress level vs Total_Score")
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(fig3, use_container_width=True, key=f"qa_{q_key}_stress_total_scatter")
         return
 
     st.info("This question can't be answered with the current filters/columns. Try widening filters or choosing another question.")
