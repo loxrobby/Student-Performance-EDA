@@ -41,6 +41,238 @@ COLUMN_DESCRIPTIONS: dict[str, str] = {
     "Sleep_Hours_per_Night": "Average sleep hours per night.",
 }
 
+# Notebook-authored markdown summaries (extracted from the EDA sections).
+# These are shown in the Per-column EDA to closely mirror the notebook narrative.
+NOTEBOOK_COLUMN_SUMMARIES: dict[str, str] = {
+    "Grade": """
+## Summary (from notebook)
+
+### **📊 Summary Of Grade Column Analysis**
+
+**1️⃣ Grade Distribution**
+- **A**: 🟢 1495 students (**29.9%**)
+- **B**: 🟡 978 students (**19.6%**)
+- **C**: 🟠 794 students (**15.9%**)
+- **D**: 🔴 889 students (**17.8%**)
+- **F**: ⚫ 844 students (**16.9%**)
+
+---
+
+**2️⃣ Attendance & Grades Relationship**
+- 📈 **Attendance (%) has a strong positive correlation with grades** (**r = 0.57**).
+- **Average Attendance by Grade:**
+  - **A**: 🟢 **85.32%**
+  - **B**: 🟡 **81.42%**
+  - **C-F**: 🔴 **65.7% – 68.1%**
+- **Attendance Thresholds:**
+  - ✅ **≥90% Attendance** → **A (68.2%) & B (31.8%)**
+  - ⚠️ **<60% Attendance** → **D (42%) & F (29.9%)**
+
+---
+
+### **🔍 Key Takeaways**
+✔️ **Attendance is the primary driver of academic success.**  
+✔️ **Clear thresholds (60%, 80%, 90%) define grade patterns.**  
+✔️ **Students with high attendance rarely fail, while low attendance strongly correlates with lower grades.**  
+
+🚀 **Final Insight: Want an A? Keep attendance ≥90%!**
+""".strip(),
+    "Gender": """
+## Summary (from notebook)
+
+### **📊 Summary Of Gender Column Analysis**
+
+**1️⃣ Gender Distribution**
+- **Males**: 👨 **62.06%** (3103 students)
+- **Females**: 👩 **37.94%** (1897 students)
+
+---
+
+**3️⃣ Attendance by Gender**
+- **Mean Attendance (%):**  
+  - 👩 **75.57%** | 👨 **75.35%**
+- 📊 Attendance levels are nearly identical.
+
+---
+
+**1️⃣1️⃣ Statistical Significance Testing**
+- 📊 **Midterm, Final, Total Scores, Study Hours, Stress Levels** → **p > 0.05**  
+- **Conclusion:** Differences between genders are **statistically insignificant**.
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Gender has no significant impact on academic performance.**  
+✔️ **Grade distributions, attendance, and extracurricular involvement are nearly identical.**  
+""".strip(),
+    "Age": """
+## Summary (from notebook)
+
+### **📊 Summary Of Age Column Analysis**
+
+**1️⃣ Age Distribution**
+- **Range:** 18 to 24 years old (balanced representation).
+
+---
+
+**9️⃣ Statistical Significance**
+- **ANOVA Test Results:** 📊 **p > 0.05**
+- **Conclusion:** **No statistically significant differences** in academic or well-being metrics across age groups.
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Age has no significant impact** on academic performance.  
+✔️ **Attendance, grades, and participation rates remain stable across ages.**  
+""".strip(),
+    "Department": """
+## Summary (from notebook)
+
+### **📊 Summary Of Department Column Analysis**
+
+**1️⃣ Department Distribution**
+- **CS:** 40.44% | **Engineering:** 29.38% | **Business:** 20.12% | **Mathematics:** 10.06%
+
+---
+
+**7️⃣ Statistical Significance**
+- **ANOVA Test Results:** 📊 **p > 0.05**
+- No statistically significant differences across departments in core metrics.
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Academic performance and attendance are stable across departments.**  
+✔️ **No major performance gaps between departments.**
+""".strip(),
+    "Total_Score": """
+## Summary (from notebook)
+
+### **📊 Summary Of Total_Score Analysis**
+
+**1️⃣ Distribution**
+- Range: **50.02 – 99.99**, Mean: **75.12**
+
+---
+
+**2️⃣ Relationship with Grades**
+- Weak correlation; high total scores do not strongly predict letter grades.
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Total_Score is weakly related to grades, attendance, and study habits.**  
+✔️ **Further investigation is needed to understand the grading structure.**
+""".strip(),
+    "Final_Score": """
+## Summary (from notebook)
+
+### **📊 Summary Of Final_Score Analysis**
+
+**1️⃣ Distribution**
+- Range: **40.00 – 99.98**, Mean: **69.64**
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Final_Score has weak or negligible correlations** with most factors.  
+✔️ **Final_Score alone does not define academic performance.**
+""".strip(),
+    "Study_Hours_per_Week": """
+## Summary (from notebook)
+
+### **📊 Summary Of Study_Hours_per_Week Analysis**
+
+**1️⃣ Distribution**
+- Range: **5 – 30**, Mean: **17.66 hours/week**
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Longer study hours do not directly translate into better academic performance.**  
+✔️ **Academic success is influenced by multiple factors beyond just study time.**
+""".strip(),
+    "Extracurricular_Activities": """
+## Summary (from notebook)
+
+### **📊 Summary Of Extracurricular Activities Analysis**
+
+**1️⃣ Participation Rates**
+- **69.8%** No | **30.2%** Yes
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Extracurricular activities have weak or negligible impact** on academic performance.  
+✔️ **Students in extracurriculars report slightly lower stress but also slightly less sleep.**
+""".strip(),
+    "Internet_Access_at_Home": """
+## Summary (from notebook)
+
+### **📊 Summary Of Internet Access at Home Analysis**
+
+**1️⃣ Internet Access Rates**
+- **89.5%** Yes | **10.5%** No
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Internet access has negligible influence** on academic performance and well-being.  
+""".strip(),
+    "Parent_Education_Level": """
+## Summary (from notebook)
+
+### **📊 Summary Of Parent Education Level Analysis**
+
+**1️⃣ Largest Category**
+- **"Not Reported" (35.6%)** → underreporting
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Parental education shows weak relationships** with academic and well-being metrics.  
+""".strip(),
+    "Family_Income_Level": """
+## Summary (from notebook)
+
+### **📊 Summary Of Family Income Level Analysis**
+
+**1️⃣ Distribution**
+- **Medium (40.0%)** largest, then Low (39.6%), High (20.4%)
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Family income level has minimal impact** on academic performance.  
+""".strip(),
+    "Stress_Level (1-10)": """
+## Summary (from notebook)
+
+### **📊 Summary Of Stress Level Analysis**
+
+**1️⃣ Distribution**
+- Range **1–10**, Mean **5.48**
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Stress level has minimal impact** on academic performance.  
+""".strip(),
+    "Sleep_Hours_per_Night": """
+## Summary (from notebook)
+
+### **📊 Summary Of Sleep Hours per Night Analysis**
+
+**1️⃣ Distribution**
+- Range **3–9**, Mean **6.48**
+
+---
+
+### **📌 Key Takeaways**
+✔️ **Sleep hours have no strong impact** on academic performance.  
+""".strip(),
+}
+
 
 @dataclass(frozen=True)
 class Filters:
@@ -476,6 +708,8 @@ def per_column_eda(dff: pd.DataFrame, col: str) -> None:
     c3.metric("Unique", f"{int(dff[col].nunique(dropna=True)):,}")
 
     st.caption(COLUMN_DESCRIPTIONS.get(col, ""))
+    if col in NOTEBOOK_COLUMN_SUMMARIES:
+        st.markdown(NOTEBOOK_COLUMN_SUMMARIES[col])
 
     series = dff[col]
 
@@ -803,115 +1037,77 @@ def main() -> None:
     section = st.sidebar.radio(
         "Sections",
         options=[
-            "1) Introduction",
-            "2) Data overview",
-            "2b) Data dictionary (column meanings)",
-            "3) Cleaning & preprocessing",
-            "4) Correlation & hypothesis tests",
-            "5) Exploratory data analysis (EDA)",
-            "5b) Per-column EDA (choose a column)",
-            "5c) Insightful Q&A (10+ questions)",
-            "6) Conclusion",
+            "Overview",
+            "Cleaning",
+            "EDA",
+            "Conclusion",
         ],
     )
 
-    if section == "1) Introduction":
-        st.markdown(
-            """
+    if section == "Overview":
+        tab_intro, tab_overview, tab_dictionary = st.tabs(["Intro", "Data overview", "Data dictionary"])
+        with tab_intro:
+            st.markdown(
+                """
 ### Problem statement
 We explore a **5,000-student** grading dataset to understand **performance patterns** and how factors like
 **attendance, study habits, and well-being** relate to outcomes (especially **Grade**).
-
-### What’s inside the dataset
-Key fields include:
-- **Academic**: `Midterm_Score`, `Final_Score`, `Assignments_Avg`, `Quizzes_Avg`, `Projects_Score`, `Total_Score`, `Grade`
-- **Behavior**: `Attendance (%)`, `Participation_Score`, `Study_Hours_per_Week`
-- **Context**: `Department`, `Gender`, `Family_Income_Level`, `Parent_Education_Level`, `Internet_Access_at_Home`
-- **Well-being**: `Stress_Level (1-10)`, `Sleep_Hours_per_Night`
 """
-        )
-        kpis(dff)
-        st.markdown("### Quick preview")
-        include_names = st.checkbox("Include First/Last name in preview", value=True)
-        preview_cols = list(dff_full_preview.columns) if include_names else list(dff.columns)
-        preview_df = dff_full_preview if include_names else dff
-        st.dataframe(preview_df[preview_cols].head(25), use_container_width=True)
-
-    elif section == "2) Data overview":
-        st.markdown("### Data overview (with optional filters)")
-        use_filters = st.checkbox("Apply current sidebar filters to this overview", value=True)
-
-        raw_view = apply_filters(df_raw, f) if use_filters else df_raw
-        cleaned_view = apply_filters(df_full_preview, f) if use_filters else df_full_preview
-        analysis_view = apply_filters(df, f) if use_filters else df
-
-        st.markdown("### Dataset comparison: before vs after cleaning")
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("#### Before cleaning (raw)")
-            st.write(f"**Rows:** {raw_view.shape[0]:,}  |  **Columns:** {raw_view.shape[1]:,}")
-            st.dataframe(raw_view.head(15), use_container_width=True)
-        with c2:
-            st.markdown("#### After cleaning (cleaned)")
-            st.write(f"**Rows:** {cleaned_view.shape[0]:,}  |  **Columns:** {cleaned_view.shape[1]:,}")
-            st.dataframe(cleaned_view.head(15), use_container_width=True)
-
-        st.markdown("#### Key cleaning counters (from this run)")
-        st.json(
-            {
-                "gender_mismatches_corrected": clean_report.get("gender_mismatches_corrected", 0),
-                "duplicate_student_id_rows": clean_report.get("duplicate_student_id_rows", 0),
-                "missing_attendance_filled": clean_report.get("missing_attendance", 0),
-                "missing_assignments_filled": clean_report.get("missing_assignments", 0),
-                "missing_parent_edu_filled": clean_report.get("missing_parent_edu", 0),
-            }
-        )
-
-        st.markdown("#### Missing values per column (raw vs cleaned)")
-        missing_before = raw_view.isna().sum()
-        missing_after = cleaned_view.isna().sum()
-        missing_compare = (
-            pd.concat(
-                [
-                    missing_before.rename("missing_raw"),
-                    missing_after.rename("missing_cleaned"),
-                ],
-                axis=1,
             )
-            .fillna(0)
-            .astype(int)
-            .sort_values(["missing_raw", "missing_cleaned"], ascending=False)
-        )
-        st.dataframe(missing_compare, use_container_width=True)
+            kpis(dff)
+            st.markdown("### Quick preview")
+            include_names = st.checkbox("Include First/Last name in preview", value=True)
+            preview_df = dff_full_preview if include_names else dff
+            st.dataframe(preview_df.head(25), use_container_width=True)
 
-        st.markdown("### Analysis dataset (de-identified)")
-        st.caption("This is the cleaned dataset **after dropping personal identifiers** (used for charts/tests).")
-        st.write(f"**Rows:** {analysis_view.shape[0]:,}  |  **Columns:** {analysis_view.shape[1]:,}")
+        with tab_overview:
+            st.markdown("### Data overview (with optional filters)")
+            use_filters = st.checkbox("Apply current sidebar filters to this overview", value=True)
+            raw_view = apply_filters(df_raw, f) if use_filters else df_raw
+            cleaned_view = apply_filters(df_full_preview, f) if use_filters else df_full_preview
+            analysis_view = apply_filters(df, f) if use_filters else df
 
-        st.markdown("### Column list & dtypes (analysis dataset)")
-        st.dataframe(
-            pd.DataFrame({"column": analysis_view.columns, "dtype": [str(analysis_view[c].dtype) for c in analysis_view.columns]}),
-            use_container_width=True,
-        )
+            st.markdown("### Dataset comparison: before vs after cleaning")
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown("#### Before cleaning (raw)")
+                st.write(f"**Rows:** {raw_view.shape[0]:,}  |  **Columns:** {raw_view.shape[1]:,}")
+                st.dataframe(raw_view.head(15), use_container_width=True)
+            with c2:
+                st.markdown("#### After cleaning (cleaned)")
+                st.write(f"**Rows:** {cleaned_view.shape[0]:,}  |  **Columns:** {cleaned_view.shape[1]:,}")
+                st.dataframe(cleaned_view.head(15), use_container_width=True)
 
-        st.markdown("### Summary statistics (numeric, analysis dataset)")
-        st.dataframe(analysis_view.select_dtypes(include="number").describe().T, use_container_width=True)
-
-    elif section == "2b) Data dictionary (column meanings)":
-        st.markdown("### Column meanings (from the notebook)")
-        dd = (
-            pd.DataFrame(
-                [
-                    {"column": c, "meaning": COLUMN_DESCRIPTIONS.get(c, "")}
-                    for c in df_raw.columns
-                ]
+            st.markdown("#### Missing values per column (raw vs cleaned)")
+            missing_compare = (
+                pd.concat(
+                    [
+                        raw_view.isna().sum().rename("missing_raw"),
+                        cleaned_view.isna().sum().rename("missing_cleaned"),
+                    ],
+                    axis=1,
+                )
+                .fillna(0)
+                .astype(int)
+                .sort_values(["missing_raw", "missing_cleaned"], ascending=False)
             )
-            .sort_values("column")
-            .reset_index(drop=True)
-        )
-        st.dataframe(dd, use_container_width=True)
+            st.dataframe(missing_compare, use_container_width=True)
 
-    elif section == "3) Cleaning & preprocessing":
+            st.markdown("### Analysis dataset (de-identified)")
+            st.caption("This is the cleaned dataset **after dropping personal identifiers** (used for charts/tests).")
+            st.write(f"**Rows:** {analysis_view.shape[0]:,}  |  **Columns:** {analysis_view.shape[1]:,}")
+            st.dataframe(analysis_view.select_dtypes(include='number').describe().T, use_container_width=True)
+
+        with tab_dictionary:
+            st.markdown("### Column meanings (from the notebook)")
+            dd = (
+                pd.DataFrame([{"column": c, "meaning": COLUMN_DESCRIPTIONS.get(c, "")} for c in df_raw.columns])
+                .sort_values("column")
+                .reset_index(drop=True)
+            )
+            st.dataframe(dd, use_container_width=True)
+
+    elif section == "Cleaning":
         st.markdown("### Cleaning steps (from the notebook)")
         st.markdown(
             """
@@ -935,74 +1131,56 @@ Key fields include:
         with st.expander("Preview cleaned & de-identified data"):
             st.dataframe(df.head(50), use_container_width=True)
 
-    elif section == "4) Correlation & hypothesis tests":
-        st.markdown("### Correlation matrix")
-        st.caption("Correlation is computed on numeric columns only. Values near +1/-1 indicate strong positive/negative relationships.")
-        correlations_heatmap(dff)
-        top_correlations_with_target(dff, target="Total_Score")
+    elif section == "EDA":
+        tab_global, tab_per_col, tab_corr, tab_qa = st.tabs(["Global EDA", "Per-column EDA", "Correlation & tests", "Insightful Q&A"])
 
-        st.divider()
-        notebook_hypothesis_tests(dff)
+        with tab_global:
+            st.markdown("### Global EDA")
+            st.markdown("#### Target focus: `Grade`")
+            grade_distribution(dff)
+            st.markdown("#### Grades vs attendance")
+            grade_vs_attendance(dff)
+            st.markdown("#### Grades vs total score")
+            grade_vs_total_score(dff)
+            st.markdown("#### Attendance vs total score")
+            attendance_vs_performance(dff)
+            st.markdown("#### Department analysis")
+            department_violin(dff)
+            heatmap_grade_by_department(dff)
 
-    elif section == "5) Exploratory data analysis (EDA)":
-        st.markdown("### Target focus: `Grade`")
-        grade_distribution(dff)
+        with tab_per_col:
+            st.markdown("### Per-column EDA (notebook-style)")
+            st.caption("Choose a column to see its notebook summary + charts.")
+            notebook_eda_columns = [
+                "Grade",
+                "Gender",
+                "Age",
+                "Department",
+                "Total_Score",
+                "Final_Score",
+                "Study_Hours_per_Week",
+                "Extracurricular_Activities",
+                "Internet_Access_at_Home",
+                "Parent_Education_Level",
+                "Family_Income_Level",
+                "Stress_Level (1-10)",
+                "Sleep_Hours_per_Night",
+            ]
+            available = [c for c in notebook_eda_columns if c in dff.columns]
+            chosen = st.selectbox("Choose a column", options=available, index=0)
+            per_column_eda(dff, chosen)
 
-        st.markdown("### Grades vs attendance")
-        st.caption("The notebook starts by relating grades to attendance.")
-        grade_vs_attendance(dff)
+        with tab_corr:
+            st.markdown("### Correlation & hypothesis tests")
+            correlations_heatmap(dff)
+            top_correlations_with_target(dff, target="Total_Score")
+            st.divider()
+            notebook_hypothesis_tests(dff)
 
-        st.markdown("### Grades vs total score (outliers + averages)")
-        grade_vs_total_score(dff)
+        with tab_qa:
+            insight_questions_section(dff)
 
-        st.markdown("### Attendance vs total score (colored by grade)")
-        attendance_vs_performance(dff)
-
-        st.markdown("### Department analysis")
-        department_violin(dff)
-        heatmap_grade_by_department(dff)
-
-        st.markdown("### Distributions")
-        st.caption("Pick a numeric feature to explore its distribution (histogram).")
-        histograms(dff)
-
-        st.markdown("### Extra: score by attendance tier")
-        score_by_attendance_tier(dff)
-
-        with st.expander("Preview filtered data"):
-            st.dataframe(dff, use_container_width=True)
-
-    elif section == "5b) Per-column EDA (choose a column)":
-        st.markdown("### Per-column EDA (like the notebook)")
-        st.caption("Pick a column and the app will generate a focused EDA view (distribution + relationships).")
-
-        # Prefer the same columns the notebook has dedicated EDA sections for
-        notebook_eda_columns = [
-            "Grade",
-            "Gender",
-            "Age",
-            "Department",
-            "Total_Score",
-            "Final_Score",
-            "Study_Hours_per_Week",
-            "Extracurricular_Activities",
-            "Internet_Access_at_Home",
-            "Parent_Education_Level",
-            "Family_Income_Level",
-            "Stress_Level (1-10)",
-            "Sleep_Hours_per_Night",
-        ]
-        available = [c for c in notebook_eda_columns if c in dff.columns]
-        if not available:
-            available = list(dff.columns)
-
-        chosen = st.selectbox("Choose a column", options=available, index=0)
-        per_column_eda(dff, chosen)
-
-    elif section == "5c) Insightful Q&A (10+ questions)":
-        insight_questions_section(dff)
-
-    else:
+    else:  # Conclusion
         st.markdown(
             """
 ### 📌 6️⃣ Conclusion & Final insights
