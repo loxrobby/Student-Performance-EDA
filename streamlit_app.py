@@ -47,229 +47,135 @@ NOTEBOOK_COLUMN_SUMMARIES: dict[str, str] = {
     "Grade": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Grade Column Analysis**
+### Grade distribution
+- A: 1,495 students (29.9%)
+- B: 978 students (19.6%)
+- C: 794 students (15.9%)
+- D: 889 students (17.8%)
+- F: 844 students (16.9%)
 
-**1️⃣ Grade Distribution**
-- **A**: 🟢 1495 students (**29.9%**)
-- **B**: 🟡 978 students (**19.6%**)
-- **C**: 🟠 794 students (**15.9%**)
-- **D**: 🔴 889 students (**17.8%**)
-- **F**: ⚫ 844 students (**16.9%**)
+### Attendance and grades
+- Attendance is strongly related to grades (reported correlation \(r \approx 0.57\)).
+- Average attendance is much higher for A/B than for C/D/F.
+- The notebook highlights clear cutoffs:
+  - ≥90% attendance is dominated by A/B
+  - <60% attendance is dominated by D/F
 
----
-
-**2️⃣ Attendance & Grades Relationship**
-- 📈 **Attendance (%) has a strong positive correlation with grades** (**r = 0.57**).
-- **Average Attendance by Grade:**
-  - **A**: 🟢 **85.32%**
-  - **B**: 🟡 **81.42%**
-  - **C-F**: 🔴 **65.7% – 68.1%**
-- **Attendance Thresholds:**
-  - ✅ **≥90% Attendance** → **A (68.2%) & B (31.8%)**
-  - ⚠️ **<60% Attendance** → **D (42%) & F (29.9%)**
-
----
-
-### **🔍 Key Takeaways**
-✔️ **Attendance is the primary driver of academic success.**  
-✔️ **Clear thresholds (60%, 80%, 90%) define grade patterns.**  
-✔️ **Students with high attendance rarely fail, while low attendance strongly correlates with lower grades.**  
-
-🚀 **Final Insight: Want an A? Keep attendance ≥90%!**
+### Takeaway
+Attendance is the clearest and most consistent signal associated with grades in this dataset.
 """.strip(),
     "Gender": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Gender Column Analysis**
+### Gender distribution
+- Male: 62.06% (3,103 students)
+- Female: 37.94% (1,897 students)
 
-**1️⃣ Gender Distribution**
-- **Males**: 👨 **62.06%** (3103 students)
-- **Females**: 👩 **37.94%** (1897 students)
+### What changes (and what doesn’t)
+- Average attendance is almost identical across genders.
+- The notebook’s statistical tests report no meaningful differences across the main academic / well‑being metrics by gender.
 
----
-
-**3️⃣ Attendance by Gender**
-- **Mean Attendance (%):**  
-  - 👩 **75.57%** | 👨 **75.35%**
-- 📊 Attendance levels are nearly identical.
-
----
-
-**1️⃣1️⃣ Statistical Significance Testing**
-- 📊 **Midterm, Final, Total Scores, Study Hours, Stress Levels** → **p > 0.05**  
-- **Conclusion:** Differences between genders are **statistically insignificant**.
-
----
-
-### **📌 Key Takeaways**
-✔️ **Gender has no significant impact on academic performance.**  
-✔️ **Grade distributions, attendance, and extracurricular involvement are nearly identical.**  
+### Takeaway
+Gender does not appear to be a strong driver of performance in this dataset.
 """.strip(),
     "Age": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Age Column Analysis**
+### Age range and stability
+- Ages range from 18 to 24 with fairly balanced counts.
+- The notebook reports ANOVA tests with \(p > 0.05\), indicating no strong differences across age groups for the main metrics.
 
-**1️⃣ Age Distribution**
-- **Range:** 18 to 24 years old (balanced representation).
-
----
-
-**9️⃣ Statistical Significance**
-- **ANOVA Test Results:** 📊 **p > 0.05**
-- **Conclusion:** **No statistically significant differences** in academic or well-being metrics across age groups.
-
----
-
-### **📌 Key Takeaways**
-✔️ **Age has no significant impact** on academic performance.  
-✔️ **Attendance, grades, and participation rates remain stable across ages.**  
+### Takeaway
+Age is not a useful splitter for performance patterns here; differences are small and inconsistent.
 """.strip(),
     "Department": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Department Column Analysis**
+### Department composition
+- CS is the largest group (~40%), then Engineering (~29%), Business (~20%), Mathematics (~10%).
 
-**1️⃣ Department Distribution**
-- **CS:** 40.44% | **Engineering:** 29.38% | **Business:** 20.12% | **Mathematics:** 10.06%
+### Differences across departments
+- The notebook describes only small differences in attendance / grades / scores across departments.
+- Reported ANOVA results suggest these differences are not statistically strong.
 
----
-
-**7️⃣ Statistical Significance**
-- **ANOVA Test Results:** 📊 **p > 0.05**
-- No statistically significant differences across departments in core metrics.
-
----
-
-### **📌 Key Takeaways**
-✔️ **Academic performance and attendance are stable across departments.**  
-✔️ **No major performance gaps between departments.**
+### Takeaway
+Department-level differences exist but are not large enough (in this dataset) to explain most variation.
 """.strip(),
     "Total_Score": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Total_Score Analysis**
+### Distribution
+- Range: 50.02–99.99; mean around 75.12.
 
-**1️⃣ Distribution**
-- Range: **50.02 – 99.99**, Mean: **75.12**
+### Relationship to other outcomes
+- The notebook notes weak alignment between Total_Score and Grade.
 
----
-
-**2️⃣ Relationship with Grades**
-- Weak correlation; high total scores do not strongly predict letter grades.
-
----
-
-### **📌 Key Takeaways**
-✔️ **Total_Score is weakly related to grades, attendance, and study habits.**  
-✔️ **Further investigation is needed to understand the grading structure.**
+### Takeaway
+Treat Total_Score with caution: it does not behave like a typical “overall performance” target in a standard grading system.
 """.strip(),
     "Final_Score": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Final_Score Analysis**
+### Distribution and weak links
+- Range: 40.00–99.98; mean around 69.64.
+- The notebook finds Final_Score has weak relationships with Grade and most other features.
 
-**1️⃣ Distribution**
-- Range: **40.00 – 99.98**, Mean: **69.64**
-
----
-
-### **📌 Key Takeaways**
-✔️ **Final_Score has weak or negligible correlations** with most factors.  
-✔️ **Final_Score alone does not define academic performance.**
+### Takeaway
+Final_Score alone doesn’t explain grades in this dataset; grading likely incorporates other criteria.
 """.strip(),
     "Study_Hours_per_Week": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Study_Hours_per_Week Analysis**
+### Study time vs outcomes
+- Range: 5–30 hours/week; mean around 17.66.
+- The notebook reports only weak correlations with academic outcomes.
 
-**1️⃣ Distribution**
-- Range: **5 – 30**, Mean: **17.66 hours/week**
-
----
-
-### **📌 Key Takeaways**
-✔️ **Longer study hours do not directly translate into better academic performance.**  
-✔️ **Academic success is influenced by multiple factors beyond just study time.**
+### Takeaway
+More study hours are not a reliable guarantee of higher scores or grades in this dataset.
 """.strip(),
     "Extracurricular_Activities": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Extracurricular Activities Analysis**
+### Participation
+- ~30% participate; ~70% do not.
 
-**1️⃣ Participation Rates**
-- **69.8%** No | **30.2%** Yes
-
----
-
-### **📌 Key Takeaways**
-✔️ **Extracurricular activities have weak or negligible impact** on academic performance.  
-✔️ **Students in extracurriculars report slightly lower stress but also slightly less sleep.**
+### Takeaway
+Extracurricular participation shows little academic impact in the notebook, with small well‑being differences at most.
 """.strip(),
     "Internet_Access_at_Home": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Internet Access at Home Analysis**
-
-**1️⃣ Internet Access Rates**
-- **89.5%** Yes | **10.5%** No
-
----
-
-### **📌 Key Takeaways**
-✔️ **Internet access has negligible influence** on academic performance and well-being.  
+### Access rates and impact
+- ~89.5% report internet access at home.
+- The notebook concludes internet access does not meaningfully change performance patterns here.
 """.strip(),
     "Parent_Education_Level": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Parent Education Level Analysis**
-
-**1️⃣ Largest Category**
-- **"Not Reported" (35.6%)** → underreporting
-
----
-
-### **📌 Key Takeaways**
-✔️ **Parental education shows weak relationships** with academic and well-being metrics.  
+### Underreporting and weak signals
+- “Not Reported” is the largest category (~35.6%), which limits interpretability.
+- The notebook finds only weak relationships with performance.
 """.strip(),
     "Family_Income_Level": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Family Income Level Analysis**
-
-**1️⃣ Distribution**
-- **Medium (40.0%)** largest, then Low (39.6%), High (20.4%)
-
----
-
-### **📌 Key Takeaways**
-✔️ **Family income level has minimal impact** on academic performance.  
+### Distribution and impact
+- Medium income is the largest group (~40%).
+- The notebook reports minimal academic differences by income level.
 """.strip(),
     "Stress_Level (1-10)": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Stress Level Analysis**
-
-**1️⃣ Distribution**
-- Range **1–10**, Mean **5.48**
-
----
-
-### **📌 Key Takeaways**
-✔️ **Stress level has minimal impact** on academic performance.  
+### Stress and performance
+- Range 1–10; mean around 5.48.
+- The notebook reports very weak relationships with performance.
 """.strip(),
     "Sleep_Hours_per_Night": """
 ## Summary (from notebook)
 
-### **📊 Summary Of Sleep Hours per Night Analysis**
-
-**1️⃣ Distribution**
-- Range **3–9**, Mean **6.48**
-
----
-
-### **📌 Key Takeaways**
-✔️ **Sleep hours have no strong impact** on academic performance.  
+### Sleep and performance
+- Range 3–9 hours; mean around 6.48.
+- The notebook finds no strong academic impact from sleep duration in this dataset.
 """.strip(),
 }
 
@@ -1287,159 +1193,25 @@ We explore a **5,000-student** grading dataset to understand **performance patte
     else:  # Conclusion
         st.markdown(
             """
-### 📌 6️⃣ Conclusion & Final insights
-### ✨ Complete Final Summary of Analysis ✨
+### Conclusion and final insights
 
----
+#### 1) Grades and attendance
+- The grade distribution is fairly balanced, with A as the most common grade.
+- Attendance stands out as the most consistent driver of grade patterns (the notebook reports \(r \approx 0.57\)).
+- The notebook highlights clear cutoffs: very high attendance (≥90%) is dominated by A/B, while very low attendance (<60%) is dominated by D/F.
 
-**1️⃣ Grade Analysis**
+#### 2) Demographics and context
+- Gender and age show only small differences across academic and well‑being outcomes in the notebook tests.
+- Department differences exist but are not large enough to explain most variation.
 
-**📊 Grade Distribution**
-- **A**: 🟢 1495 students (**29.9%**)
-- **B**: 🟡 978 students (**19.6%**)
-- **C**: 🟠 794 students (**15.9%**)
-- **D**: 🔴 889 students (**17.8%**)
-- **F**: ⚫ 844 students (**16.9%**)
+#### 3) Scores and the grading scheme
+- Total_Score and Final_Score show weak alignment with Grade in the notebook.
+- That suggests the dataset may use a grading system that incorporates factors beyond Final_Score alone.
 
-**📈 Attendance & Grades Relationship**
-- **Attendance has a strong positive correlation with grades** (**r = 0.57**).
-- **Grade Distribution by Attendance:**
-  - **≥90% Attendance:** 🟢 **A (68.2%)** | 🟡 **B (31.8%)** (No C, D, or F)
-  - **≥80% Attendance:** 🟢 **A (56.45%)** | 🟡 **B (27.25%)**
-  - **<60% Attendance:** 🟠 **C (27.96%)** | 🔴 **D (42.07%)** | ⚫ **F (29.96%)**
-- **Final Score and Midterm Scores have weak predictive power on grades** (**r < 0.03**).
-
-**🔍 Key Takeaway**
-✔️ **Attendance is the strongest predictor of grades, with clear thresholds at 60%, 80%, and 90%.**  
-✔️ **Students with high attendance rarely fail, while low attendance is strongly associated with lower grades.**  
-🚀 **Final Insight: Want an A? Keep attendance ≥90%!**
-
----
-
-**2️⃣ Gender Analysis**
-- **👥 Gender Distribution:** **62.06% Male | 37.94% Female**
-- **📊 Performance Trends:**
-  - **📌 Females:** **Slightly better in participation scores and sleep more.**
-  - **📌 Males:** **Marginal edge in quizzes and project scores.**
-- **📑 Statistical Tests:** No significant differences in academic or well-being metrics by gender.
-
----
-
-**3️⃣ Age Analysis**
-- **📊 Age Range:** **18 to 24 years** (fairly uniform representation).
-- **📌 Key Findings:**
-  - **🔹 Age 18:** **Higher attendance (75.87%).**
-  - **🔹 Ages 22 & 23:** **Higher Grade A rates.**
-- **📑 ANOVA Tests:** No significant variations in academic/well-being outcomes by age.
-
----
-
-**4️⃣ Department Analysis**
-- **🏫 Department Distribution:**
-  - **📌 CS:** **40.44%**
-  - **📌 Engineering:** **29.38%**
-  - **📌 Business:** **20.12%**
-  - **📌 Mathematics:** **10.06%**
-- **📊 Performance Trends:**
-  - **📌 Engineering:** **Highest A grade rates (32.27%) and top attendance (76.08%).**
-  - **📌 Mathematics:** **Excels in projects but reports higher stress.**
-- **📑 Statistical Tests:** Negligible differences between departments in academic metrics.
-
----
-
-**5️⃣ Performance Metrics**
-
-**📈 Total Score**
-- **📊 Range:** **50.02 to 99.99** | **Mean:** **75.12**
-- **📌 Correlations:**
-  - **Attendance:** **-0.018**
-  - **Grades:** **-0.023**
-- **🧐 Insight:** Does not align with traditional academic evaluation systems.
-
-**📉 Final Score**
-- **📊 Mean:** **69.64**
-- **📌 Correlations:**
-  - **Attendance:** **-0.024**
-  - **Grade:** **0.036 (weak correlation)**
-- **🧐 Insight:** **Final score is not strongly related to grade, indicating differences in evaluation criteria.**
-
-**📚 Study Hours per Week**
-- **📊 Mean:** **17.66 hours**
-- **📌 Findings:**
-  - **Longer study hours ≠ higher scores.**
-  - **High-income students study slightly more (18.06 hours).**
-
----
-
-**6️⃣ Extracurricular Activities**
-- **🏆 Participation Rate:** **30.2%**
-- **📌 Findings:**
-  - **Slight benefit in reducing stress levels.**
-  - **No significant academic impact.**
-
----
-
-**7️⃣ Internet Access at Home**
-- **🌐 Access Rate:** **89.5%**
-- **📌 Findings:**
-  - **Negligible relation to attendance, performance, or other academic metrics.**
-
----
-
-**8️⃣ Parent Education Level**
-- **📊 Largest Category:** **"Not Reported" (35.6%)**
-- **📌 Findings:**
-  - **Slight link between higher parental education and Grade A outcomes.**
-  - **Weak statistical impact overall.**
-
----
-
-**9️⃣ Family Income**
-- **📊 Grade A Rates:**
-  - **Low-income students:** **30.2% (slightly higher)**
-- **📌 Findings:**
-  - **No tangible disadvantages in digital access or academic performance.**
-
----
-
-**🔟 Stress and Sleep Analysis**
-
-**📉 Stress Levels**
-- **📊 Range:** **1-10** | **Mean:** **5.48**
-- **📌 Findings:**
-  - **Negligible impact on academic performance.**
-  - **Higher stress (8-10) correlates with more Grade A outcomes.**
-
-**🛌 Sleep Hours per Night**
-- **📊 Mean:** **6.48 hours**
-- **📌 Findings:**
-  - **Consistent across demographics, income, departments, and grades.**
-
----
-
-### 📌 Key Takeaways
-✔️ **Attendance is the primary driver of academic success.**  
-✔️ **Clear thresholds (60%, 80%, 90%) define grade patterns.**  
-✔️ **Final score is weakly related to grade (correlation of 0.036), suggesting differences in grading methodology.**  
-✔️ **Gender, internet access, parent education, and sleep have minimal impact on academic performance.**  
-✔️ **Stress slightly affects Grade A outcomes at higher levels.**  
-✔️ **Total and Final scores show weak correlation with attendance or grading, questioning traditional evaluation methods.**  
-✔️ **Consistency across age, department, and family backgrounds highlights a need to explore non-measurable performance factors.**
-
-### 📌 Practical Steps for Improvement
-✔️ **Boost Attendance: Since students with high attendance perform better, schools could offer rewards or include participation in grading.**
-
-✔️ **Encourage Smart Study Habits: Students should aim for 10-20 study hours per week to slightly improve their grades.**
-
-✔️ **Support Low-Income Students: Free tutoring and study materials can help ensure financial struggles don’t hold students back.**
-
-✔️ **Focus on Computer Science Students: Since CS has the most students, extra support and personalized learning could improve their success.**
-
-✔️ **Balance Academics & Activities: While extracurriculars don’t strongly impact grades, structured programs that mix learning with social activities can be beneficial.**
-
-🚀 **Final Tip: Keep attendance above 90% for the best chances of success!**
-
-**Thanks!**
+#### Practical steps
+- Attendance: focus interventions on students with low attendance and build early warning signals.
+- Study habits: support consistent study routines, but don’t assume “more hours” always translates to better results.
+- Data quality: reduce “Not Reported” where possible to improve the reliability of future analyses.
 """
         )
 
