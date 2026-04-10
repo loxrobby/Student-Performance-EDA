@@ -342,28 +342,27 @@ def drop_irrelevant_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def sidebar_filters(df: pd.DataFrame) -> Filters:
-    st.sidebar.header("Filters")
+    with st.sidebar.expander("Filter data", expanded=False):
+        def multiselect(col: str, label: str) -> list[str]:
+            if col not in df.columns:
+                return []
+            options = sorted([x for x in df[col].dropna().unique().tolist() if str(x).strip() != ""])
+            default = options
+            return st.multiselect(label, options=options, default=default)
 
-    def multiselect(col: str, label: str) -> list[str]:
-        if col not in df.columns:
-            return []
-        options = sorted([x for x in df[col].dropna().unique().tolist() if str(x).strip() != ""])
-        default = options
-        return st.sidebar.multiselect(label, options=options, default=default)
+        departments = multiselect("Department", "Department")
+        genders = multiselect("Gender", "Gender")
+        income_levels = multiselect("Family_Income_Level", "Family income")
+        parent_edu = multiselect("Parent_Education_Level", "Parent education")
+        internet = multiselect("Internet_Access_at_Home", "Internet access at home")
+        extracurricular = multiselect("Extracurricular_Activities", "Extracurricular activities")
 
-    departments = multiselect("Department", "Department")
-    genders = multiselect("Gender", "Gender")
-    income_levels = multiselect("Family_Income_Level", "Family income")
-    parent_edu = multiselect("Parent_Education_Level", "Parent education")
-    internet = multiselect("Internet_Access_at_Home", "Internet access at home")
-    extracurricular = multiselect("Extracurricular_Activities", "Extracurricular activities")
-
-    if "Age" in df.columns and pd.api.types.is_numeric_dtype(df["Age"]):
-        min_age = int(df["Age"].min())
-        max_age = int(df["Age"].max())
-        ages = st.sidebar.slider("Age range", min_value=min_age, max_value=max_age, value=(min_age, max_age))
-    else:
-        ages = (0, 10_000)
+        if "Age" in df.columns and pd.api.types.is_numeric_dtype(df["Age"]):
+            min_age = int(df["Age"].min())
+            max_age = int(df["Age"].max())
+            ages = st.slider("Age range", min_value=min_age, max_value=max_age, value=(min_age, max_age))
+        else:
+            ages = (0, 10_000)
 
     return Filters(
         departments=departments,
