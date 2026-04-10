@@ -11,6 +11,9 @@ import streamlit as st
 
 
 DATA_PATH_DEFAULT = Path(__file__).with_name("Students_Grading_Dataset.csv")
+HEADER_GIF_URL = (
+    "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzV0cTRieDdhODVxYjZzaHlqcXFwbHVnYjhwZWVoZzJ6ZmczOGdzMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GfHDdZDCSac7EMnXO5/giphy.gif"
+)
 GRADE_ORDER = ["A", "B", "C", "D", "F"]
 INCOME_ORDER = ["Low", "Medium", "High"]
 YES_NO_ORDER = ["Yes", "No"]
@@ -1016,6 +1019,9 @@ def main() -> None:
     st.set_page_config(page_title="Student Performance Dashboard", layout="wide")
     st.title("Student Performance EDA (Streamlit)")
     st.caption("This app mirrors the structure and key analyses from `challenge-student-performance.ipynb`.")
+    _, gif_col, _ = st.columns([1, 2, 1])
+    with gif_col:
+        st.image(HEADER_GIF_URL, use_container_width=True)
 
     with st.sidebar:
         st.caption("Data source: `Students_Grading_Dataset.csv`")
